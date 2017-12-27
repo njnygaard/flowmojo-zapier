@@ -70,7 +70,7 @@ describe('Create Text File', () => {
         result.name.should.containEql(name);
         result.name.should.containEql('.txt');
         result.name.should.not.containEql('.txt.txt');
-        result._parent.should.eql(TEST_RESOURCES.folder.parent);
+        result._parent.should.eql(TEST_RESOURCES.folder.path);
         result._path.should.containEql(`${TEST_RESOURCES.folder.path}/${name}`);
         done();
       })

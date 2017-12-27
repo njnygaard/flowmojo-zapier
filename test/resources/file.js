@@ -163,9 +163,9 @@ describe('File Resource', () => {
         results[0].should.have.property('id');
         results[0].should.have.property('file');
         results[0].should.not.have.property('folder');
-        results[0].name.should.containEql('sample');
+        results[0].name.should.containEql('boom');
         results[0]._parent.should.eql('');
-        results[0]._path.should.containEql('/sample');
+        results[0]._path.should.containEql('/boom.txt');
         done();
       })
       .catch(done);

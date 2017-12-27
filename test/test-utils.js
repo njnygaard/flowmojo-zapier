@@ -45,26 +45,26 @@ const globalBeforeSetup = (done) => {
 //   ID: 697LD7B578EB1372!716
 const TEST_RESOURCES = {
   root: {
-    id: '',
-    name: 'sample.pdf',
-    path: '/sample.pdf',
+    id: 'EEBD76C72B328995!906',
+    name: 'smile-full-pixel-900x900.png',
+    path: '/smile-full-pixel-900x900.png',
     parent: '',
   },
   nested: {
-    id: '',
+    id: 'EEBD76C72B328995!908',
     name: 'test.txt',
     path: '/Documents/Testing/test.txt',
     parent: '/Documents/Testing',
   },
 
   folder: {
-    id: '',
+    id: 'EEBD76C72B328995!139',
     name: 'Documents',
     path: '/Documents',
     parent: '',
   },
   childFolder: {
-    id: '',
+    id: 'EEBD76C72B328995!907',
     name: 'Testing',
     path: '/Documents/Testing',
     parent: '/Documents',

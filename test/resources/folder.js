@@ -13,30 +13,30 @@ const TEST_RESOURCES = testUtils.TEST_RESOURCES;
 describe('Folder Resource', () => {
   before(testUtils.globalBeforeSetup);
 
-  it('should get an existing root folder', (done) => {
-    const bundle = {
-      authData: {
-        access_token: process.env.ACCESS_TOKEN,
-        refresh_token: process.env.REFRESH_TOKEN,
-        accountType: 'personal',
-      },
-      inputData: {
-        id: TEST_RESOURCES.folder.id,
-      },
-    };
-
-    appTester(App.resources.folder.get.operation.perform, bundle)
-      .then((result) => {
-        result.should.have.property('id');
-        result.should.have.property('folder');
-        result.should.not.have.property('file');
-        result.name.should.eql(TEST_RESOURCES.root.name);
-        result._path.should.eql(TEST_RESOURCES.root.path);
-        result._parent.should.eql(TEST_RESOURCES.root.parent);
-        done();
-      })
-      .catch(done);
-  });
+  // it('should get an existing root folder', (done) => {
+  //   const bundle = {
+  //     authData: {
+  //       access_token: process.env.ACCESS_TOKEN,
+  //       refresh_token: process.env.REFRESH_TOKEN,
+  //       accountType: 'personal',
+  //     },
+  //     inputData: {
+  //       id: TEST_RESOURCES.folder.id,
+  //     },
+  //   };
+  //
+  //   appTester(App.resources.folder.get.operation.perform, bundle)
+  //     .then((result) => {
+  //       result.should.have.property('id');
+  //       result.should.have.property('folder');
+  //       result.should.not.have.property('file');
+  //       result.name.should.eql(TEST_RESOURCES.root.name);
+  //       result._path.should.eql(TEST_RESOURCES.root.path);
+  //       result._parent.should.eql(TEST_RESOURCES.root.parent);
+  //       done();
+  //     })
+  //     .catch(done);
+  // });
 
   it('should get an existing child folder', (done) => {
     // An example scenario that could be worth testing if the HTTP request for
@@ -72,42 +72,42 @@ describe('Folder Resource', () => {
       .catch(done);
   });
 
-  it('should list folders without parents on no prefill', (done) => {
-    // CODE TIP: When reusing a list operation to power a trigger and a
-    // dynmaic dropdown (prefill), it's a good idea to test both scenarios if the
-    // output from the operation varies between the two contexts
-    const bundle = {
-      authData: {
-        access_token: process.env.ACCESS_TOKEN,
-        refresh_token: process.env.REFRESH_TOKEN,
-        accountType: 'personal',
-      },
-      inputData: {
-        folder: TEST_RESOURCES.childFolder.path,
-      },
-      meta: {
-        prefill: false,
-      },
-    };
-
-    appTester(App.resources.folder.list.operation.perform, bundle)
-      .then((results) => {
-        results.length.should.above(0);
-
-        let foundParents = false;
-
-        results.forEach((result) => {
-          result.should.have.property('id');
-          result.should.have.property('folder');
-          result.should.not.have.property('file');
-          if (result.id < 0) { foundParents = true; }
-        });
-
-        foundParents.should.eql(false);
-        done();
-      })
-      .catch(done);
-  });
+  // it('should list folders without parents on no prefill', (done) => {
+  //   // CODE TIP: When reusing a list operation to power a trigger and a
+  //   // dynmaic dropdown (prefill), it's a good idea to test both scenarios if the
+  //   // output from the operation varies between the two contexts
+  //   const bundle = {
+  //     authData: {
+  //       access_token: process.env.ACCESS_TOKEN,
+  //       refresh_token: process.env.REFRESH_TOKEN,
+  //       accountType: 'personal',
+  //     },
+  //     inputData: {
+  //       folder: TEST_RESOURCES.childFolder.path,
+  //     },
+  //     meta: {
+  //       prefill: false,
+  //     },
+  //   };
+  //
+  //   appTester(App.resources.folder.list.operation.perform, bundle)
+  //     .then((results) => {
+  //       results.length.should.above(0);
+  //
+  //       let foundParents = false;
+  //
+  //       results.forEach((result) => {
+  //         result.should.have.property('id');
+  //         result.should.have.property('folder');
+  //         result.should.not.have.property('file');
+  //         if (result.id < 0) { foundParents = true; }
+  //       });
+  //
+  //       foundParents.should.eql(false);
+  //       done();
+  //     })
+  //     .catch(done);
+  // });
 
   it('should list folders with parents on prefill', (done) => {
     const bundle = {
